@@ -129,7 +129,6 @@ button {
     margin-left: -5px;
 }
 
-
 .book-ad {
     grid-column: 2/3;
     width: 100%;
@@ -144,17 +143,44 @@ iframe {
 .book-card-container {
     grid-row: 2 / 3;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 100px 1fr;
 }
 
-/* template {
-    margin: 10px;
-} */
+.action-btn {
+    grid-row: 1/2;
+    margin-top: 20px;
+}
+
+.books {
+    grid-row: 2/3;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(4, 1fr);
+}
 
 .book-card {
-    box-shadow: 1px 1px 3px #464545;
+    position: relative;
+    box-shadow: 3px 3px 5px #464545;
     border-radius: 10px;
     border: 1px solid black;
-    margin: 10px;
+    margin: 15px;
+    height: 450px;
+    width: 450px;
 }
 
+.book-cover {
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    top: 0;
+    bottom: 50%;
+    right: 50%;
+    left: 50%;
+    margin: 0 auto;
+}
+
+.book-call-to-action {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
