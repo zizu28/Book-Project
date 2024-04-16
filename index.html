@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -34,7 +37,7 @@
                 </div>
             </div>
             <div class="nav-content">
-                <div>
+                <div class="page-intro">
                     <div class="inspire">
                         <span></span>
                         Your next great read is waiting
@@ -61,120 +64,55 @@
             </div>
         </div>
         <div class="book-card-container">
+            <div class="books-stats-summary">
+                <div class="stats-1">
+                  <p>Books</p>
+                  <p id="book-count">0</p>
+                </div>
+                <div class="stats-2">
+                  <p>Books Read</p>
+                  <p id="books-read">0</p>
+                </div>
+                <div class="stats-3">
+                  <p>Total Pages</p>
+                  <p id="total-pages">0</p>
+                </div>
+                <div class="stats-4">
+                  <p>Pages Read</p>
+                  <p id="pages-read">0</p>
+                </div>
+            </div>
             <div class="action-btn">
-                <button>Show Books</button>
-                <button>NEW BOOK</button>
+                <button id="add-book">NEW BOOK</button>
             </div>
             <div class="books">
-                <div class="book-card">
-                    <img class="book-cover" src="" alt="Book Cover">
-                    <div class="book-info">
-                        <h3 class="book-title"></h3>
-                        <p class="book-author"></p>
-                        <p class="book-pages"></p>
-                        <p class="book-intro"></p>
-                    </div>
-                    <div class="book-call-to-action">
-                        <h1 class="price"></h1>
-                        <button>Add To Cart</button>
-                        <button>Delete Book</button>
-                        <button class="read">Not read</button>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img class="book-cover" src="" alt="Book Cover">
-                    <div class="book-info">
-                        <h3 class="book-title"></h3>
-                        <p class="book-author"></p>
-                        <p class="book-pages"></p>
-                        <p class="book-intro"></p>
-                    </div>
-                    <div class="book-call-to-action">
-                        <h1 class="price"></h1>
-                        <button>Add To Cart</button>
-                        <button>Delete Book</button>
-                        <Button class="read">Not read</Button>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img class="book-cover" src="" alt="Book Cover">
-                    <div class="book-info">
-                        <h3 class="book-title"></h3>
-                        <p class="book-author"></p>
-                        <p class="book-pages"></p>
-                        <p class="book-intro"></p>
-                    </div>
-                    <div class="book-call-to-action">
-                        <h1 class="price"></h1>
-                        <button>Add To Cart</button>
-                        <button>Delete Book</button>
-                        <button class="read">Not read</button>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img class="book-cover" src="" alt="Book Cover">
-                    <div class="book-info">
-                        <h3 class="book-title"></h3>
-                        <p class="book-author"></p>
-                        <p class="book-pages"></p>
-                        <p class="book-intro"></p>
-                    </div>
-                    <div class="book-call-to-action">
-                        <h1 class="price"></h1>
-                        <button>Add To Cart</button>
-                        <button>Delete Book</button>
-                        <Button class="read">Not read</Button>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img class="book-cover" src="" alt="Book Cover">
-                    <div class="book-info">
-                        <h3 class="book-title"></h3>
-                        <p class="book-author"></p>
-                        <p class="book-pages"></p>
-                        <p class="book-intro"></p>
-                    </div>
-                    <div class="book-call-to-action">
-                        <h1 class="price"></h1>
-                        <button>Add To Cart</button>
-                        <button>Delete Book</button>
-                        <Button class="read">Not read</Button>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img class="book-cover" src="" alt="Book Cover">
-                    <div class="book-info">
-                        <h3 class="book-title"></h3>
-                        <p class="book-author"></p>
-                        <p class="book-pages"></p>
-                        <p class="book-intro"></p>
-                    </div>
-                    <div class="book-call-to-action">
-                        <h1 class="price"></h1>
-                        <button>Add To Cart</button>
-                        <button>Delete Book</button>
-                        <Button class="read">Not read</Button>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img class="book-cover" src="" alt="Book Cover">
-                    <div class="book-info">
-                        <h3 class="book-title"></h3>
-                        <p class="book-author"></p>
-                        <p class="book-pages"></p>
-                        <p class="book-intro"></p>
-                    </div>
-                    <div class="book-call-to-action">
-                        <h1 class="price"></h1>
-                        <button>Add To Cart</button>
-                        <button>Delete Book</button>
-                        <Button class="read">Not read</Button>
-                    </div>
-                </div>
+
             </div>
         </div>
+        <dialog class="book-dialog">
+            <h2>Book Info</h2>
+            <form class="book-form" id="bookForm">
+                <div class="form-item">
+                    <input type="text" id="title" class="input" required>
+                    <label for="title" class="fs-body-lg text-primary-dark">Title</label>
+                </div>
+                <div class="form-item">
+                    <input type="text" name="author" id="author" required>
+                    <label for="author" class="fs-body-lg text-primary-dark">Author</label>
+                </div>
+                <div class="form-item">
+                    <input type="number" name="pageCount" id="pageCount" min="1" required>
+                    <label for="pageCount" class="fs-body-lg text-primary-dark">Page Count</label>
+                </div>
+                <div class="form-item">
+                    <label for="isRead" class="fs-large-text fw-semi-bold text-primary-light is-read">Read:</label>
+                    <input type="checkbox" name="isRead" id="isRead">
+                </div>
+                <button class="btn fw-semi-bold fs-large-text text-primary-dark">Add Book</button>
+            </form>
+      </dialog>
     </div>
+    <script src="https://kit.fontawesome.com/f4523bed7d.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
-<script src="https://kit.fontawesome.com/f4523bed7d.js" crossorigin="anonymous"></script>
-<script src="script.js"></script>
 </html>

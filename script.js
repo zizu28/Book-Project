@@ -1,63 +1,157 @@
 const myLibrary = []
 
-function Book(title, author, pages, coverUrl, intro, read){
+function Book(title, author, pages, isRead){
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.coverUrl = coverUrl;
-  this.intro = intro;
-  this.read = function(){
-    return read === "No".toLowerCase() ? "Read" : "Not read";
-  }
+  this.isRead = isRead;
 }
 
-function addBookToLibrary(){
-  const title = prompt("What is the title of the book? ")
-  const author = prompt("Who is the author of the book? ")
-  const pages = prompt("How many pages does the book have? ")
-  const coverUrl = prompt("Provide the url/absolute/relative path of the book cover.")
-  const intro = prompt("Provide a brief introduction of the book.")
-  const read = prompt("Has the book been read already? ")
-
-  const book = new Book(title, author, pages, coverUrl, intro, read)
+function addBookToLibrary(book){
   myLibrary.push(book);
 }
 
-function displayBookOnCard(myLibrary){
-  for (let book in myLibrary) {
-    
-    
-  }
+const dialog = document.querySelector('.book-dialog');
+const newBook = document.querySelector('#add-book');
+
+newBook.addEventListener('click', () => {
+  dialog.showModal();
+});
+
+function createBookCard(book, index){
+  const bookCard = document.createElement('div');
+  bookCard.classList.add('book-card');
+  bookCard.dataset.index = index;
+  bookCard.style.position = 'relative';
+
+  const bookInfo = document.createElement('div');
+  bookInfo.classList.add('book-info');
+  bookInfo.style.position = 'absolute';
+  bookInfo.style.top = '10px';
+  bookInfo.style.left = "20px";
+  bookInfo.style.bottom = '50%';
+  bookInfo.style.fontFamily = 'Helvetica';
+  bookInfo.style.fontSize = '25px';
+
+  const bookTitle = document.createElement('h3');
+  bookTitle.classList.add('book-title');
+  bookTitle.textContent = "Title: " + book.title;
+
+  const bookAuthor= document.createElement('p');
+  bookAuthor.classList.add('book-author');
+  bookAuthor.textContent = "Author: " + book.author;
+
+  const pageCount = document.createElement('p');
+  pageCount.classList.add('book-pages');
+  pageCount.textContent = book.pages + ' pages';
+
+  const bookRead = document.createElement('div');
+  bookRead.classList.add('book-read');
+
+  const bookReadCheckbox = document.createElement('input');
+  bookReadCheckbox.type = 'checkbox';
+  bookReadCheckbox.checked = book.isRead;
+
+  const booksReadLabel = document.createElement('label');
+  booksReadLabel.textContent = 'Read';
+
+  // const isReadToggle = document.createElement('div');
+  // isReadToggle.classList.add('is-read-toggle');
+
+  const bookCardActions = document.createElement('div');
+  bookCardActions.classList.add('book-call-to-action');
+
+  
+  const deleteBook = document.createElement('button');
+  deleteBook.textContent = 'Delete Book';
+  deleteBook.classList.add('delete-book');
+
+  const addBookToCart = document.createElement('button');
+  addBookToCart.textContent = 'Add Book To Cart';
+  deleteBook.classList.add('add-book-to-cart');  
+
+  bookCardActions.appendChild(addBookToCart);
+  bookCardActions.appendChild(deleteBook);
+
+  bookRead.appendChild(booksReadLabel);
+  bookRead.appendChild(bookReadCheckbox);
+
+  bookInfo.appendChild(bookTitle);
+  bookInfo.appendChild(bookAuthor);
+  bookInfo.appendChild(pageCount);
+  bookInfo.appendChild(bookRead);
+
+  bookCard.appendChild(bookInfo);
+  bookCard.appendChild(bookCardActions);
+
+  return bookCard;
 }
 
-function addBookCard(Book) {
-  // Clone the template to avoid modifying the original structure
-  const newBookCard = document.querySelector('.book-card').content.cloneNode(true);
+const populateBooksContainer = document.querySelector('#show-books');
+const booksCardContainer = document.querySelector('.books');
 
-  // Set book title, author, pages, and intro content
-  newBookCard.querySelector(".book-title").textContent = Book.title;
-  newBookCard.querySelector(".book-author").textContent = Book.author;
-  newBookCard.querySelector(".book-pages").textContent = Book.pages;
-  newBookCard.querySelector(".book-intro").textContent = Book.intro;
-  newBookCard.querySelector(".read").textContent = Book.read;
-  newBookCard.querySelector(".price").textContent = prompt("Provide the price of the book.")
+booksCardContainer.addEventListener('click', (event) => {
+  let bookIndex;
+  let card;
 
-  // Set book cover image (if URL provided)
-  if (Book.coverUrl) {
-    newBookCard.querySelector(".book-cover").src = Book.coverUrl;
-  } else {
-    // Add a placeholder or handle the case of no cover image
-    newBookCard.querySelector(".book-cover").src = "placeholder.jpg"; 
+  if(event.target.type === 'checkbox'){
+    card = event.target.closest('.book-card');
+    bookIndex = card.dataset.index;
+    myLibrary[bookIndex].isRead = !myLibrary[bookIndex].isRead;
+    updateLibrary(myLibrary);
   }
+  else if (event.target.classList.contains('delete-book')) {
+    card = event.target.closest('.book-card');
+    bookIndex = +card.dataset.index;
+    myLibrary.splice(bookIndex, 1);
+    displayMyBooks(myLibrary);
+    updateLibrary(myLibrary);
+  }
+})
 
-  // Append the new book card to a container element in your HTML
-  document.querySelector(".books").appendChild(newBookCard);
+function displayMyBooks(bookLibrary){
+  booksCardContainer.textContent = '';
+  const bookCards = bookLibrary.map((book, index) => createBookCard(book, index));
+  booksCardContainer.append(...bookCards);
 }
 
-  function isRead(Book){
-    const read = document.querySelector(".read");
-    if (Book.read() === read.textContent) {
-      read.textContent = Book.read();
-      this.read = "Read";
+function updateLibrary(library){
+  const totalBooks = document.querySelector('#book-count');
+  const booksRead = document.querySelector('#books-read');
+  const totalPages = document.querySelector('#total-pages');
+  const pagesRead = document.querySelector('#pages-read');
+  let booksReadCounter = 0;
+  let pagesReadCounter = 0;
+  let totalPagesCounter = 0;
+
+  library.forEach(book => {
+    totalPagesCounter += +book.pages;
+
+    if (book.isRead) {
+        booksReadCounter++;
+        pagesReadCounter += +book.pages;
     }
-  }
+});
+
+totalBooks.textContent = library.length;
+booksRead.textContent = booksReadCounter;
+totalPages.textContent = totalPagesCounter;
+pagesRead.textContent = pagesReadCounter;
+}
+
+const bookForm = document.querySelector('#bookForm');
+bookForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const title = document.querySelector('#title').value;
+    const author = document.querySelector('#author').value;
+    const pages = document.querySelector('#pageCount').value;
+    const isRead = document.querySelector('#isRead').checked;
+
+    const newBook = new Book(title, author, pages, isRead);
+    addBookToLibrary(newBook);
+    bookForm.reset();
+    displayMyBooks(myLibrary);
+    updateLibrary(myLibrary);
+    dialog.close();
+});
