@@ -1,10 +1,12 @@
 const myLibrary = []
 
-function Book(title, author, pages, isRead){
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
+class Book{
+  constructor(title, author, pages, isRead){
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 }
 
 function addBookToLibrary(book){
@@ -55,9 +57,6 @@ function createBookCard(book, index){
   const booksReadLabel = document.createElement('label');
   booksReadLabel.textContent = 'Read';
 
-  // const isReadToggle = document.createElement('div');
-  // isReadToggle.classList.add('is-read-toggle');
-
   const bookCardActions = document.createElement('div');
   bookCardActions.classList.add('book-call-to-action');
 
@@ -87,7 +86,7 @@ function createBookCard(book, index){
   return bookCard;
 }
 
-const populateBooksContainer = document.querySelector('#show-books');
+// const populateBooksContainer = document.querySelector('#show-books');
 const booksCardContainer = document.querySelector('.books');
 
 booksCardContainer.addEventListener('click', (event) => {
