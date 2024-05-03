@@ -92,7 +92,7 @@ const booksCardContainer = document.querySelector('.books');
 booksCardContainer.addEventListener('click', (event) => {
   let bookIndex;
   let card;
-
+  
   if(event.target.type === 'checkbox'){
     card = event.target.closest('.book-card');
     bookIndex = card.dataset.index;
@@ -140,12 +140,12 @@ pagesRead.textContent = pagesReadCounter;
 
 const bookForm = document.querySelector('#bookForm');
 bookForm.addEventListener('submit', (e) => {
-    e.preventDefault();
 
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
     const pages = document.querySelector('#pageCount').value;
     const isRead = document.querySelector('#isRead').checked;
+    e.preventDefault();
 
     const newBook = new Book(title, author, pages, isRead);
     addBookToLibrary(newBook);
